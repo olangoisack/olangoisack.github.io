@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isack Odiwuor Olang'o — Electrical &amp; Electronic Engineer</title>
+<meta name="description" content="Portfolio of Isack Odiwuor Olang'o, Electrical and Electronic Engineering student specializing in Telecommunications, IoT, and Data Science.">
+<style>
+  :root{
+    --bg: #0b0d0f;
+    --bg-raised: #12151a;
+    --line: #232830;
+    --text: #e7e9ec;
+    --text-dim: #9aa3ad;
+    --accent: #d98e3f;
+    --accent-dim: #8a5d2b;
+    --signal: #5fb9a8;
+    --font-display: 'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-body: 'Inter', 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+  }
+
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: local('Space Grotesk');
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--accent); color:#0b0d0f; }
+
+  /* ---- Signal trace background ---- */
+  .trace-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:0.35;
+  }
+
+  /* ---- Layout shell ---- */
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 28px;
+    position:relative;
+    z-index:1;
+  }
+
+  /* ---- Nav ---- */
+  nav{
+    position:sticky;
+    top:0;
+    z-index:10;
+    background:rgba(11,13,15,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 28px;
+  }
+  .nav-mark{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent);
+    letter-spacing:0.05em;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--text-dim);
+  }
+  .nav-links a:hover{ color:var(--accent); }
+
+  /* ---- Hero ---- */
+  header.hero{
+    padding:110px 0 90px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--signal);
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:24px;
+  }
+  .eyebrow::before{
+    content:'';
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--signal);
+    box-shadow:0 0 0 0 rgba(95,185,168,0.6);
+    animation:pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(95,185,168,0.5); }
+    70%{ box-shadow:0 0 0 8px rgba(95,185,168,0); }
+    100%{ box-shadow:0 0 0 0 rgba(95,185,168,0); }
+  }
+  h1.name{
+    font-family:var(--font-display);
+    font-size:clamp(36px,6vw,64px);
+    font-weight:700;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    max-width:800px;
+  }
+  h1.name .accent{ color:var(--accent); }
+  .role-stack{
+    margin-top:22px;
+    font-family:var(--font-mono);
+    font-size:15px;
+    color:var(--text-dim);
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    align-items:center;
+  }
+  .role-stack .seg{
+    color:var(--text);
+  }
+  .role-stack .arrow{ color:var(--accent-dim); }
+  .hero-desc{
+    margin-top:28px;
+    max-width:580px;
+    color:var(--text-dim);
+    font-size:16px;
+  }
+  .hero-cta{
+    margin-top:36px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--font-mono);
+    font-size:13px;
+    padding:12px 22px;
+    border-radius:2px;
+    border:1px solid var(--line);
+    transition:border-color .2s, color .2s, background .2s;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:#0b0d0f;
+    border-color:var(--accent);
+    font-weight:600;
+  }
+  .btn-primary:hover{ background:#e8a253; }
+  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+
+  /* ---- Section scaffolding ---- */
+  section{
+    padding:70px 0;
+    border-top:1px solid var(--line);
+  }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:40px;
+  }
+  .section-tag{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent-dim);
+  }
+  .section-title{
+    font-family:var(--font-display);
+    font-size:28px;
+    font-weight:600;
+  }
+  .section-rule{
+    flex:1;
+    height:1px;
+    background:var(--line);
+  }
+
+  /* ---- About ---- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:50px;
+  }
+  .about-text p{ color:var(--text-dim); margin-bottom:16px; }
+  .about-text strong{ color:var(--text); font-weight:600; }
+  .stat-block{
+    border-left:2px solid var(--accent-dim);
+    padding-left:18px;
+  }
+  .stat-block .stat-num{
+    font-family:var(--font-mono);
+    font-size:26px;
+    color:var(--accent);
+    display:block;
+  }
+  .stat-block .stat-label{
+    font-size:13px;
+    color:var(--text-dim);
+  }
+  .stat-row{ display:flex; flex-direction:column; gap:22px; }
+
+  /* ---- Skills ---- */
+  .skills-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+  }
+  .skill-card{
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    padding:22px;
+    border-radius:4px;
+  }
+  .skill-card h3{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--signal);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:14px;
+  }
+  .skill-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .skill-tag{
+    font-size:13px;
+    padding:5px 10px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    color:var(--text-dim);
+  }
+
+  /* ---- Experience / Education timeline ---- */
+  .tl-item{
+    display:grid;
+    grid-template-columns:140px 1fr;
+    gap:24px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .tl-item:last-child{ border-bottom:none; }
+  .tl-period{
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent-dim);
+  }
+  .tl-role{
+    font-weight:600;
+    font-size:16px;
+    margin-bottom:4px;
+  }
+  .tl-org{
+    font-size:14px;
+    color:var(--signal);
+    margin-bottom:8px;
+  }
+  .tl-desc{
+    font-size:14px;
+    color:var(--text-dim);
+  }
+
+  /* ---- Projects ---- */
+  .project-card{
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:28px;
+    margin-bottom:20px;
+    transition:border-color .2s, transform .2s;
+  }
+  .project-card:hover{
+    border-color:var(--accent-dim);
+    transform:translateY(-2px);
+  }
+  .project-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .project-title{
+    font-family:var(--font-display);
+    font-size:19px;
+    font-weight:600;
+  }
+  .project-stack{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--signal);
+    margin-top:6px;
+  }
+  .project-desc{
+    margin-top:14px;
+    color:var(--text-dim);
+    font-size:14px;
+    max-width:640px;
+  }
+  .project-link{
+    margin-top:18px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--font-mono);
+    font-size:13px;
+    color:var(--accent);
+    border-bottom:1px solid transparent;
+  }
+  .project-link:hover{ border-bottom-color:var(--accent); }
+  .project-card.placeholder{
+    border-style:dashed;
+    opacity:0.55;
+  }
+  .project-card.placeholder .project-desc{ font-style:italic; }
+
+  /* ---- Contact ---- */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+  }
+  .contact-item{
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    padding:20px;
+    border-radius:4px;
+  }
+  .contact-label{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    margin-bottom:8px;
+  }
+  .contact-value{
+    font-size:15px;
+    word-break:break-word;
+  }
+  .contact-value a:hover{ color:var(--accent); }
+
+  footer{
+    padding:36px 0;
+    text-align:center;
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--text-dim);
+    border-top:1px solid var(--line);
+  }
+  footer .accent{ color:var(--accent); }
+
+  /* ---- Responsive ---- */
+  @media (max-width:720px){
+    .about-grid{ grid-template-columns:1fr; }
+    .skills-grid{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .tl-item{ grid-template-columns:1fr; gap:6px; }
+    nav .wrap{ padding:14px 20px; }
+    .nav-links{ gap:16px; font-size:12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<svg class="trace-bg" viewBox="0 0 1200 1600" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#d98e3f" stroke-width="1" fill="none" opacity="0.5">
+    <path d="M0 80 H300 V160 H520 V40 H900 V220"/>
+    <path d="M1200 300 H950 V420 H700 V520 H400 V480"/>
+    <path d="M0 600 H180 V700 H60 V900"/>
+    <path d="M1200 760 H980 V900 H1100 V1100"/>
+    <path d="M0 1200 H260 V1100 H520 V1300"/>
+  </g>
+  <g fill="#5fb9a8">
+    <circle cx="300" cy="80" r="4"/>
+    <circle cx="520" cy="160" r="4"/>
+    <circle cx="900" cy="40" r="4"/>
+    <circle cx="950" cy="300" r="4"/>
+    <circle cx="700" cy="420" r="4"/>
+    <circle cx="180" cy="600" r="4"/>
+    <circle cx="60" cy="700" r="4"/>
+    <circle cx="980" cy="760" r="4"/>
+    <circle cx="1100" cy="900" r="4"/>
+    <circle cx="260" cy="1200" r="4"/>
+    <circle cx="520" cy="1100" r="4"/>
+  </g>
+</svg>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">I.O.OLANG'O</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Available for attachment, internship &amp; freelance work</div>
+    <h1 class="name">Isack Odiwuor <span class="accent">Olang'o</span></h1>
+    <div class="role-stack">
+      <span class="seg">Electrical &amp; Electronic Engineering</span>
+      <span class="arrow">&rarr;</span>
+      <span class="seg">Telecommunications</span>
+      <span class="arrow">&rarr;</span>
+      <span class="seg">Data Science</span>
+    </div>
+    <p class="hero-desc">
+      Final year EEE student at the Technical University of Kenya, specializing in Telecommunications
+      and Information Engineering. I build systems that sit at the intersection of signals, networks,
+      and data, from embedded IoT devices to the dashboards that make sense of what they measure.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#projects">View Projects</a>
+      <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+      <a class="btn btn-ghost" href="https://github.com/olangoisack" target="_blank" rel="noopener">GitHub &#8599;</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">01</span>
+      <h2 class="section-title">About</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I'm a final year <strong>Electrical and Electronic Engineering</strong> student at the
+          Technical University of Kenya, specializing in <strong>Telecommunications and Information
+          Engineering</strong>. My work spans RF and microwave theory, wireless networking, and
+          satellite and mobile communications, alongside hands on experience building IoT systems
+          and analyzing data.
+        </p>
+        <p>
+          I'm currently on a three month industrial attachment at the <strong>Kenya Broadcasting
+          Corporation</strong>, working within the Technical Engineering Department on broadcast
+          signal flow and transmission systems. Alongside my studies, I teach SQL and Power BI at
+          <strong> Tech Savvy Institute</strong> and serve as <strong>Vice Chairperson</strong> of
+          the IEEE Student Branch at TUK.
+        </p>
+        <p>
+          I'm drawn to problems where communication systems and data meet, designing the hardware
+          that gathers a signal, and the pipeline that turns it into something useful.
+        </p>
+      </div>
+      <div class="stat-row">
+        <div class="stat-block">
+          <span class="stat-num">3.5 / 4.0</span>
+          <span class="stat-label">GPA, BSc Electrical &amp; Electronic Engineering</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-num">5th Year</span>
+          <span class="stat-label">Final year, Technical University of Kenya</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-num">KBC</span>
+          <span class="stat-label">Industrial Attachment, Technical Engineering Dept.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">02</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3>Electrical &amp; Electronic Engineering</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Circuit Design</span>
+          <span class="skill-tag">KiCad</span>
+          <span class="skill-tag">Proteus</span>
+          <span class="skill-tag">PCB Layout</span>
+          <span class="skill-tag">MATLAB</span>
+          <span class="skill-tag">Simulink</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Telecommunications</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Satellite &amp; Mobile Comms</span>
+          <span class="skill-tag">WLAN / 802.11</span>
+          <span class="skill-tag">Microwave &amp; RF</span>
+          <span class="skill-tag">Transmission Lines</span>
+          <span class="skill-tag">Broadcast Systems</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>IoT &amp; Embedded Systems</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">ESP32</span>
+          <span class="skill-tag">MQTT</span>
+          <span class="skill-tag">TinyML</span>
+          <span class="skill-tag">Sensor Integration</span>
+          <span class="skill-tag">Linux CLI</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data Science</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Data Pipelines</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">03</span>
+      <h2 class="section-title">Experience &amp; Education</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">May 2026 &mdash; Present</div>
+      <div>
+        <div class="tl-role">Industrial Attachment</div>
+        <div class="tl-org">Kenya Broadcasting Corporation, Technical Engineering Dept.</div>
+        <div class="tl-desc">Working with broadcast signal flow and transmission systems, including live signal walkthroughs using TVU Networks technology (ISX, HEVC, DVB-T2, OTT).</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2025 &mdash; Present</div>
+      <div>
+        <div class="tl-role">SQL &amp; Power BI Instructor</div>
+        <div class="tl-org">Tech Savvy Institute</div>
+        <div class="tl-desc">Teaching beginner level data science, covering SQL, Power BI, and NumPy through live coding and real world Kenyan datasets.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2025 &mdash; 2026</div>
+      <div>
+        <div class="tl-role">Vice Chairperson</div>
+        <div class="tl-org">IEEE Student Branch, Technical University of Kenya</div>
+        <div class="tl-desc">Supporting branch leadership and coordinating technical activities for the student chapter.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">2021 &mdash; 2026</div>
+      <div>
+        <div class="tl-role">BSc Electrical &amp; Electronic Engineering</div>
+        <div class="tl-org">Technical University of Kenya &mdash; Telecommunications &amp; Information Engineering</div>
+        <div class="tl-desc">Final year, GPA 3.5 / 4.0. Coursework spanning WLAN security, satellite and mobile communications, microwave circuits, and channel modeling.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-period">In Progress</div>
+      <div>
+        <div class="tl-role">IBM Data Science Professional Certificate</div>
+        <div class="tl-org">Coursera &mdash; 12 course series</div>
+        <div class="tl-desc">Building structured data science fundamentals alongside ongoing Power BI and SQL teaching work.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">04</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-rule"></div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-top">
+        <div>
+          <div class="project-title">IoT Based Smart Health Monitoring &amp; Intelligent Fall Detection System</div>
+          <div class="project-stack">ESP32 &middot; MQTT &middot; TinyML</div>
+        </div>
+      </div>
+      <p class="project-desc">
+        Final year project combining embedded sensing with on device machine learning to detect falls
+        in real time and report health metrics over MQTT, aimed at low cost, responsive elderly care
+        monitoring.
+      </p>
+      <a class="project-link" href="https://github.com/olangoisack/smart-health-fall-detection" target="_blank" rel="noopener">View Repository &rarr;</a>
+    </div>
+
+    <div class="project-card placeholder">
+      <div class="project-top">
+        <div>
+          <div class="project-title">More Projects Coming Soon</div>
+          <div class="project-stack">PCB Design &middot; Power BI &middot; SQL</div>
+        </div>
+      </div>
+      <p class="project-desc">
+        Additional work including KiCad PCB designs and Power BI / SQL teaching projects is being
+        documented and will be added here.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">05</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-rule"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:olangoisack@gmail.com">olangoisack@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">Phone</div>
+        <div class="contact-value"><a href="tel:+254110898005">+254 110 898 005</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">LinkedIn</div>
+        <div class="contact-value"><a href="https://www.linkedin.com/in/isack-olango/" target="_blank" rel="noopener">linkedin.com/in/isack-olango</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">GitHub</div>
+        <div class="contact-value"><a href="https://github.com/olangoisack" target="_blank" rel="noopener">github.com/olangoisack</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Built and maintained by <span class="accent">Isack Odiwuor Olang'o</span> &middot; <span id="year"></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
